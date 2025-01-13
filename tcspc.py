@@ -51,3 +51,17 @@ class TCSPC():
         if xlim is not None:
             plt.xlim(xlim)
         plt.xlabel('Time [ns]')
+
+    def getData(self, channel, bgchannel = None, smooth = None):
+        #do bg subtraction if specified
+        if bgchannel is None:
+            ydata = self.df_counts[channel]
+        else:
+            ydata = self.df_counts[channel] - self.df_counts[bgchannel]
+
+        if smooth is not None:
+            ydata_smooth = savgol_filter(ydata, window_length=smooth, polyorder=3)
+
+        result_df = pd.DataFrame({'time': self.df_time[channel], 'counts': ydata_smooth})
+        return result_df
+        
