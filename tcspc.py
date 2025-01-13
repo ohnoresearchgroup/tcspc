@@ -34,7 +34,7 @@ class TCSPC():
             time = range(len(self.df_counts.index))*self.time_res[i]
             self.df_time[i] = time
 
-    def plot(self,channel, bgchannel = None, xlim = None, smooth = None):
+    def plot(self,channel, bgchannel = None, xlims = None, smooth = None):
         #do bg subtraction if specified
         if bgchannel is None:
             ydata = self.df_counts[channel]
